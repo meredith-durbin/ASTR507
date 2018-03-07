@@ -1,0 +1,93 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in, lmargin=0.75in]{geometry}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{astro}
+\usepackage{url}
+\usepackage[bottom]{footmisc}
+
+\newcommand\allbold[1]{{\boldmath\textbf{#1}}}
+\newcommand\pc{\mathrm{\ pc}}
+\newcommand\Lpc{\ L_\odot/\!\!\pc^2}
+\newcommand\sech{\ \!\mathrm{sech}}
+
+\begin{document}
+
+\begin{flushright}Meredith Durbin\\
+Tom Quinn\\
+Astro 507: Thermodynamics\\
+\today\\
+
+\end{flushright}
+
+\center{\textsc{Homework 2}} \\[6pt]
+
+\begin{enumerate}
+
+\item
+	Starting with $C_V = dU/dT = \frac{3}{2}Nk_B$ and $C_P = dU/dT + PdV/dT = \frac{5}{2}Nk_B$, we have: 
+    \begin{align}
+    C_P/C_V &= \frac{\frac{5}{2}Nk_B}{\frac{3}{2}Nk_B} \\
+    &= \frac{5}{3} \\
+    &= \gamma \\
+    C_P - C_V &= \frac{5}{2}Nk_B - \frac{3}{2}Nk_B \\
+    &= Nk_B
+    \end{align}
+\item
+    To find the speed at which the fastest electron should be moving, we want to set $nV$ times the integral of the Maxwell-Boltzmann distribution equal to one and solve for the velocity. Given that $\int_x^\infty y^2 e^{-y^2} dy \approx xe^{-x^2}/2$ for $x \gg 1$, we set $x = \sqrt{mv^2/2k_B T}$ and find:
+    \begin{align}
+%    1 &= \frac{2}{\sqrt{\pi}} n \left( \frac{m}{2 k_B T} \right)^{3/2} x e^{-x^2} \\
+%    &= \frac{4}{\sqrt{\pi}} n \left( \frac{m}{2 k_B T} \right)^{3/2} \sqrt{\frac{mv^2}{2k_B T}} e^{-\frac{mv^2}{2k_BT}} \\
+%    &= \frac{4}{\sqrt{\pi}} n v \left( \frac{m}{2 k_B T} \right)^{2} e^{-\frac{mv^2}{2k_BT}}
+	1 &= nV \frac{1}{2}x e^{-x^2} \\
+	&= \frac{nV}{2}\sqrt{\frac{mv^2}{2k_B T}} e^{-\frac{mv^2}{2k_B T}}
+    \end{align}
+    Solving this numerically using \texttt{scipy.optimize.fsolve}, we find that the maximum expected velocity is $0.224c$, which is much less than the cosmic ray velocity. Therefore cosmic rays cannot be of thermal origin.
+    
+    Numerical solving code: \url{https://github.com/meredith-durbin/ASTR507/blob/master/HW2/HW2.ipynb}
+
+\item 
+    \begin{enumerate}
+    \item For a particle cross section of $\sigma$, the number density at which the mean free path equals the scale height is:
+        \begin{align}
+        \frac{1}{\sigma n_\mathrm{esc}} &= \frac{k_BT}{mg} \\
+        n_\mathrm{esc} &= \frac{mg}{k_BT\sigma}
+        \end{align}
+    
+    \item The upwards flux of particles is:
+        \begin{align}
+        \phi(v)dv &= \frac{f(v)dv}{4\pi} \int_0^{2\pi}d\phi \int_0^{\pi/2} v\cos\theta\sin\theta d\theta \\
+        &= \frac{f(v)dv}{2} \int_0^{\pi/2} v\cos\theta\sin\theta d\theta \\
+        &= \frac{vf(v)dv}{4}
+        \end{align}
+        
+    \item The total flux of escaping particles is:
+    	\begin{align}
+		\phi &= \int_{v_\mathrm{esc}}^\infty \phi(v)dv \\
+		&= \frac{1}{4}n_\mathrm{esc}\int_{v_\mathrm{esc}}^\infty vf(v)dv \\
+		&= \frac{1}{4}n_\mathrm{esc}\int_{v_\mathrm{esc}}^\infty 4\pi v^3 \left(\frac{m}{2\pi k_B T}\right)^{3/2} e^{-\frac{mv^2}{2k_B T}} dv \\
+		&= \pi n_\mathrm{esc} \left(\frac{m}{2\pi k_B T}\right)^{3/2} \int_{v_\mathrm{esc}}^\infty v^3 e^{-\frac{mv^2}{2k_B T}} dv \\
+		&= \pi n_\mathrm{esc} \left(\frac{m}{2\pi k_B T}\right)^{3/2} \frac{k_B T}{m^2} e^{\frac{-mv_\mathrm{esc}^2}{2k_BT}} \left(mv_\mathrm{esc}^2 + 2k_B T \right) \\
+		&= \pi n_\mathrm{esc} \left(\frac{m}{2\pi k_B T}\right)^{3/2} e^{\frac{-mv_\mathrm{esc}^2}{2k_BT}} \left(\frac{k_BT}{m}v_\mathrm{esc}^2 + \frac{2(k_B T)^2}{m^2} \right)
+		\end{align}
+		Substituting in $v_s = \sqrt{2k_BT/m}$ and $\lambda_\mathrm{esc} = (v_\mathrm{esc}/v_s)^2 = mv_\mathrm{esc}^2/2k_BT$, we have:
+		\begin{align}
+		\phi &= \pi n_\mathrm{esc} \left(\frac{m}{2\pi k_B T}\right)^{3/2} e^{\frac{-mv_\mathrm{esc}^2}{2k_BT}} \left(\frac{k_BT}{m}v_\mathrm{esc}^2 + \frac{2(k_B T)^2}{m^2} \right) \\
+		&= \frac{n_\mathrm{esc}}{2\sqrt{\pi}} v_s^{-3} e^{-\lambda_\mathrm{esc}} \left(v_s^2v_\mathrm{esc}^2 + v_s^4 \right) \\
+		&= \frac{v_s n_\mathrm{esc}}{2\sqrt{\pi}} e^{-\lambda_\mathrm{esc}} \left(\lambda_\mathrm{esc} + 1 \right)
+		\end{align}
+		
+	\item I find that the rate of H2 loss over the entire exosphere is $1.33\times10^{26}$ particles per second, which means that over 1 Gyr $4.20\times10^{42}$ particles will escape. This is about half of the current hydrogen content of Earth's atmosphere. (Code in notebook linked above.)
+	
+	\item For oxygen, I find that the loss rate is on the order of $10^{-70}$ particles per second, which comes out to much less than a single particle being lost over 1 Gyr. This implies a stable oxygen abundance over time.
+	
+	\item For deuterium, I find a loss rate of $9.6 \times 10^{36}$ particles per second, and a total loss over 1 Gyr of $3 \times 10^{36}$ particles. This is a slower loss rate than H2, but not slow enough to be stable.
+    
+    \end{enumerate}
+
+\end{enumerate}
+\end{document}

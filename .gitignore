@@ -1,3 +1,8 @@
+# mac and tex stuff
+*.aux
+*.synctex.gz
+*DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

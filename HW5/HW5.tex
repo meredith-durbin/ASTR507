@@ -1,0 +1,56 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in, lmargin=0.75in]{geometry}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{astro}
+\usepackage{url}
+\usepackage[bottom]{footmisc}
+
+\newcommand\allbold[1]{{\boldmath\textbf{#1}}}
+\newcommand\pc{\mathrm{\ pc}}
+\newcommand\Lpc{\ L_\odot/\!\!\pc^2}
+\newcommand\sech{\ \!\mathrm{sech}}
+
+\begin{document}
+
+\begin{flushright}Meredith Durbin\\
+Tom Quinn\\
+Astro 507: Thermodynamics\\
+\today\\
+
+\end{flushright}
+
+\center{\textsc{Homework 5}} \\[6pt]
+
+\begin{enumerate}
+
+\item
+	\begin{enumerate}
+    \item The thermal de Broglie wavelength of a particle is $\lambda = h/(2\pi mkT)^{1/2}$; for an electron at the center of the sun, $\lambda_e = 1.924573 \times 10^{-9}$ cm. This gives a degeneracy parameter of $n_e\lambda_e^3 = 0.713$.
+    
+    \item Assuming the sun is entirely hydrogen and disregarding all states other than the ground state, we can use a simplified form of the Saha equation:
+    \begin{align}
+    \frac{n_p}{n_{HI}} &= n_e^{-1} \lambda_e^{-3} e^{-\chi_I/kT} \\
+    &= 1.39
+    \end{align}
+    Substituting $X = n_p/(n_p + n_{HI}) = n_p/n_H$, we find:
+    \begin{align}
+    \frac{X^2}{1 - X} &= 1.39 \\
+    X &= 0.67
+    \end{align}
+    \item Assuming that this question refers to ionized hydrogen, we can apply the concept of a Wigner-Seitz cell and find $r_p$ using $n_p = n_e$:
+    \begin{align}
+    r_p &= \left( \frac{3}{4\pi n_p} \right)^{1/3} \\
+    &= 1.34 \times 10^{-9} \mathrm{\ cm} \\
+    &= 0.13 \mathrm{\ \AA}
+    \end{align}
+    The calculation changes only slightly for non-ionized hydrogen, given that $n_H = n_p/0.67$.
+    \item The Saha equation is only valid for relatively low-density gases, where $n_e\lambda_e^3 \ll 1$; we found that this was not so in part (a). One cannot treat atoms at the center of the sun in isolation because the mean separation is well under a Bohr radius, which means that the ionization energy is impacted by degeneracy. I would expect that the hydrogen at the center of the sun would be fully ionized.
+    \end{enumerate}
+
+\end{enumerate}
+\end{document}

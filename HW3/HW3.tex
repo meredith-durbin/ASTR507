@@ -1,0 +1,89 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in, lmargin=0.75in]{geometry}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{astro}
+\usepackage{url}
+\usepackage[bottom]{footmisc}
+
+\newcommand\allbold[1]{{\boldmath\textbf{#1}}}
+\newcommand\pc{\mathrm{\ pc}}
+\newcommand\Lpc{\ L_\odot/\!\!\pc^2}
+\newcommand\sech{\ \!\mathrm{sech}}
+\newcommand\density{\left( \frac{M}{R^3} \right)}
+\newcommand\kideal{K_\mathrm{ideal}}
+
+\begin{document}
+
+\begin{flushright}Meredith Durbin\\
+Tom Quinn\\
+Astro 507: Thermodynamics\\
+\today\\
+
+\end{flushright}
+
+\center{\textsc{Homework 3}} \\[6pt]
+
+\begin{enumerate}
+
+\item
+	\begin{enumerate}
+    \item The entropy for an ideal nonrelativistic Fermi gas is given as $S = (U + PV -N\mu)/T$. The pressure and number density are given in the notes, from which we can easily get $PV$ and $N$:
+    \begin{align}
+    PV &= \frac{4(2s+1)VkT}{3\pi^{1/2}\lambda^3}F_{3/2}(z) \\
+    N &= \frac{2(2s+1)V}{\pi^{1/2}\lambda^3}F_{1/2}(z) \\
+    \end{align}
+    We know that $U = \frac{3}{2}P$ for an ideal gas, so:
+    \begin{align}
+    U &= \frac{2(2s+1)VkT}{\pi^{1/2}\lambda^3}F_{3/2}(z)
+    \end{align}
+    Putting these together, we have:
+    \begin{align}
+    S &= \left(\frac{2(2s+1)VkT}{\pi^{1/2}\lambda^3}F_{3/2}(z) + \frac{4(2s+1)VkT}{3\pi^{1/2}\lambda^3}F_{3/2}(z) - \frac{2(2s+1)V\mu}{\pi^{1/2}\lambda^3}F_{1/2}(z) \right)T^{-1} \\
+    &= \frac{2(2s+1)V}{\pi^{1/2}\lambda^3 T} \left( \frac{5}{3}kTF_{3/2}(z) - \mu F_{1/2}(z) \right)
+    \end{align}
+    \item Expanding $P/nkT$ as a series in $z$ is equivalent to Taylor expanding $F_{3/2}(z)$ about $z=0$. The linear term is:
+    \begin{align}
+    \frac{d}{dz}\left(\frac{w^{3/2}}{e^w/z+1}\right) &= \frac{e^w w^{3/2}}{(e^w+z)^2}
+    \end{align}
+    At $z=0$, this is simply $w^{3/2}/e^w$. We then plug this back into the Fermi-Dirac integral and evaluate:
+    \begin{align}
+    F_{3/2}(z) &= z\int_0^\infty w^{3/2}/e^w dw \\
+    &= \frac{3\sqrt{\pi}}{4}z
+    \end{align}
+    Plugging this back in to our expression for $P/nkT$, we have:
+    \begin{align}
+    \frac{P}{nkT} &= \frac{4(2s+1)}{3\pi^{1/2}\lambda^3n}\frac{3\sqrt{\pi}}{4}z \\
+    &= \frac{(2s+1)}{\lambda^3n}z
+    \end{align}
+    This indicates that pressure will increase with fugacity, and fugacity increases with degeneracy.
+    \end{enumerate}
+    
+\item
+	\begin{enumerate}
+    \item All calculations are in \url{}.
+    
+    First, we need to find the electron number density. For 10\% helium by number, $n_H = \rho_c / (m_H + 0.1m_{He})$. Assuming full ionization, we then have $n_e = 1.2 n_H$. We find $F_{1/2}(z) = \sqrt{\pi}\lambda^3n_e/2(2s+1) = 0.83$. We then numerically solve the Fermi-Dirac integral for $z$ and find $z = 1.3$.
+    
+    \item Using $P = \frac{4(2s+1)kT}{3\pi^{1/2}\lambda^3}F_{3/2}(z)$, we find the pressure at the center of the star to be $1.6 \times 10^{17}$ dyn/cm$^2$.
+    
+    \item The relativistic density is $\rho_{rel} = 2\times10^6 (\mu_e/2m_p)$ g/cm$^3$, or about $1.4 \times 10^6$ g/cm$^3$. This is much higher than the given density, so the electrons are not relativistic.
+    
+    \item Using $P = nkT$, we find a pressure of $1.15 \times 10^{17}$ dyn/cm$^2$, which isn't that far from what we found with the other equation, so degeneracy is not important.
+    
+    \item Solving for $M$ and $R$, we find:
+    \begin{align}
+    M &= \frac{0.016 \sqrt{\rho_c}}{\mu_e F_{1/2}(z)}  \\
+    R &= \frac{0.514}{(\mu_e F_{3/2}(z) \sqrt{\rho_c})^{1/3}}
+    \end{align}
+    
+    This gives us $M = 0.25M_\odot$ and $R = 0.19R_\odot$.
+    
+    \end{enumerate}
+
+\end{enumerate}
+\end{document}
